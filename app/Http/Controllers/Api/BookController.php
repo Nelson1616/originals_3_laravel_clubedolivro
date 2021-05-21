@@ -89,6 +89,10 @@ class BookController extends Controller
                 return response()->json(['data' => ['msg' => 'Livro não encontrado']]);
             }
             $book->user;
+            foreach($book->lends as $lend)
+            {
+                $lend->user;
+            }
             return response()->json(['data' => $book], 200);
         }
         catch(\Exception $e)

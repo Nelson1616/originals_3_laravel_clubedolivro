@@ -5,24 +5,24 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Book extends Model
+class Lend extends Model
 {
     use HasFactory;
 
     protected $fillable = [
+        'book_id',
         'user_id',
-        'title', 
-        'author', 
-        'description',
+        'start',
+        'end',
     ];
 
     public function user()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class, 'user_id');
     }
 
-    public function lends()
+    public function book()
     {
-        return $this->hasMany(Lend::class);
+        return $this->belongsTo(Book::class, 'book_id');
     }
 }
