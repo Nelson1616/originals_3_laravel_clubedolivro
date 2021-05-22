@@ -19,7 +19,7 @@ class BookController extends Controller
     {
         try
         {
-            $books = $this->book->all();
+            $books = $this->book->orderBy('id', 'desc')->get();
             return response()->json(['data' => $books], 200);
         }
         catch(\Exception $e)
@@ -92,6 +92,7 @@ class BookController extends Controller
             foreach($book->lends as $lend)
             {
                 $lend->user;
+                $lend->book;
             }
             return response()->json(['data' => $book], 200);
         }

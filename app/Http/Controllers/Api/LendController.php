@@ -17,6 +17,8 @@ class LendController extends Controller
 
     public function lend_period_teste($data, $return, $id = null, $method = 'create')
     {
+        $data['start'] = date('Y/m/d H:i', strtotime($data['start']));
+        $data['end'] = date('Y/m/d H:i', strtotime($data['end']));
         if($data['start'] >= $data['end'])
         {
             return 'A data de inicio não pode ser igual ou maior que a do fim';
@@ -30,6 +32,8 @@ class LendController extends Controller
         $lends_in_same_period = 0;
         foreach($user_leeds as $lend)
         {
+            $lend->start = date('Y/m/d H:i', strtotime($lend->start));
+            $lend->end = date('Y/m/d H:i', strtotime($lend->end));
             if( $lend->book->user_id == $data['user_id'])
             {
                 return 
@@ -81,6 +85,8 @@ class LendController extends Controller
         $book_lends = $this->lend->all()->where('book_id', $data['book_id'])->where('id', '!=', $id);
         foreach($book_lends as $lend)
         {
+            $lend->start = date('Y/m/d H:i', strtotime($lend->start));
+            $lend->end = date('Y/m/d H:i', strtotime($lend->end));
             if
             (
                 (
@@ -108,11 +114,20 @@ class LendController extends Controller
 
         if($method == 'update')
         {
+            $data['start'] = date('d/m/Y H:i', strtotime($data['start']));
+            $data['start'] = str_replace("/", "-", $data['start']);
+            $data['end'] = date('d/m/Y H:i', strtotime($data['end']));
+            $data['end'] = str_replace("/", "-", $data['end']);
+
             $lend = $this->lend->find($id);
             $lend->update($data);
         }
         else
         {
+            $data['start'] = date('d/m/Y H:i', strtotime($data['start']));
+            $data['start'] = str_replace("/", "-", $data['start']);
+            $data['end'] = date('d/m/Y H:i', strtotime($data['end']));
+            $data['end'] = str_replace("/", "-", $data['end']);
             $this->lend->create($data);
         } 
         return $return;

@@ -22,5 +22,8 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 Route::resource('users', UserController::class);
+Route::get('users/lends/{id}', [UserController::class, 'user_lends']);
+Route::get('users/books/{id}', [UserController::class, 'user_books']);
+
 Route::resource('books', BookController::class);
 Route::resource('lends', LendController::class);
