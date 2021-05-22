@@ -1,7 +1,7 @@
 <template>
     <div class="Container">
         <div class="top">
-            <h1 id="title">Livros</h1>
+            <h1 id="title">Clube do Livro</h1>
             <span id="name">{{ this.user.name }} <input type="number" @change="getUser()" v-model="user_id"></span>
             <span class="clear"></span>
         </div>
